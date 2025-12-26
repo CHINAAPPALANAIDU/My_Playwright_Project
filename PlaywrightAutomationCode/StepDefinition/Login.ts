@@ -4,7 +4,7 @@ import { pageFixture } from '../Hooks/page'
 import {loginCredentials } from "../Files/TestData.json"
 import { setDefaultTimeout } from '@cucumber/cucumber'
 
-// setDefaultTimeout(4 * 1000)
+setDefaultTimeout(4 * 1000)
 
 let logInPage : LoginPage
 

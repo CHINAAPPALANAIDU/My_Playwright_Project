@@ -41,6 +41,6 @@ export class LoginPage{
       async clickLoginButton()
       {
             await pageFixture.page.getByRole("button", {name: this.Elements.orangeHrmLoginButtonGetByRole}).click()
-            await pageFixture.page.waitForTimeout(3000)
+            // await pageFixture.page.waitForTimeout(3000)
       }
 }
