@@ -19,6 +19,6 @@ Then("I give input data to input fields", async function(){
             await logInPage.userNameInput(loginCredentials.userName)
             await logInPage.userPasswordInput(loginCredentials.password)
             await logInPage.clickLoginButton()
-            
+            await logInPage.clickOnAdmin()
 })
 
