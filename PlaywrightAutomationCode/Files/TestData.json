@@ -4,5 +4,11 @@
         "userName": "Admin",
         "password": "admin123",
         "reUserName" : "Admin"
+    },
+    "SystemUsers": {
+        "userName":"Admin",
+        "userRole":"Admin",
+        "employeName": "Israt Sultana akhil Mila",
+        "status" : "Enabled"
     }
 }

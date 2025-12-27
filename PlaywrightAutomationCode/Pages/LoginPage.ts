@@ -1,5 +1,5 @@
-import { Page, expect } from "@playwright/test"
-import { pageFixture } from "../Hooks/page"
+import { Page, expect } from "@playwright/test";
+import { pageFixture } from "../Hooks/page";
 
 
 export class LoginPage{
@@ -15,8 +15,7 @@ export class LoginPage{
         orangeHrmUsenamePlaceholder : "Username",
         orangeHrmPassowordPlaceholder: "Password",
         orangeHrmLoginButtonGetByRole : " Login ",
-        orangeHrmForgetGetByText : "//*[text()='Forgot your password? ']",
-        orangeHrmHomeSidebar : ".oxd-main-menu-item"
+        orangeHrmForgetGetByText : "//*[text()='Forgot your password? ']"
        }
        async navigatedToTheLoginPage()
        {
@@ -42,7 +41,7 @@ export class LoginPage{
       async clickLoginButton()
       {
             await pageFixture.page.getByRole("button", {name: this.Elements.orangeHrmLoginButtonGetByRole}).click()
-            // await pageFixture.page.waitForTimeout(3000)
+            
       }
       
 }
