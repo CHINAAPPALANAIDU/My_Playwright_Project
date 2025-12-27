@@ -15,8 +15,7 @@ export class LoginPage{
         orangeHrmUsenamePlaceholder : "Username",
         orangeHrmPassowordPlaceholder: "Password",
         orangeHrmLoginButtonGetByRole : " Login ",
-        orangeHrmForgetGetByText : "//*[text()='Forgot your password? ']",
-        orangeHrmHomeSidebar : ".oxd-main-menu-item"
+        orangeHrmForgetGetByText : "//*[text()='Forgot your password? ']"
        }
        async navigatedToTheLoginPage()
        {
@@ -44,5 +43,4 @@ export class LoginPage{
             await pageFixture.page.getByRole("button", {name: this.Elements.orangeHrmLoginButtonGetByRole}).click()
             // await pageFixture.page.waitForTimeout(3000)
       }
-      
 }
