@@ -2,6 +2,7 @@
 {
     "loginCredentials":{
         "userName": "Admin",
-        "password": "admin123"
+        "password": "admin123",
+        "reUserName" : "Admin"
     }
 }
