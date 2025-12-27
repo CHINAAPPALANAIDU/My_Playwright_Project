@@ -44,8 +44,5 @@ export class LoginPage{
             await pageFixture.page.getByRole("button", {name: this.Elements.orangeHrmLoginButtonGetByRole}).click()
             // await pageFixture.page.waitForTimeout(3000)
       }
-      async clickOnAdmin()
-      {
-            await pageFixture.page.locator(this.Elements.orangeHrmHomeSidebar).filter({hasText: "Admin"}).click()
-      }
+      
 }
