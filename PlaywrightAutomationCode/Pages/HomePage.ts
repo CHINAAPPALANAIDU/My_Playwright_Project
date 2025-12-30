@@ -4,6 +4,8 @@ import { pageFixture } from "../Hooks/page";
 
 export class HomePage{
 
+     empNewName! : string;
+
     private readonly page : Page
     constructor(page : Page)
     {
@@ -20,6 +22,7 @@ export class HomePage{
         orageHrmSelectOption : "-- Select --",
         orageHrmEmpNamePlaceHolder : "Type for hints...",
         orageHrmSearch : "Search ",
+        orageHrmCancel : " Cancel ",
         orangeHrmRecordFound : ".oxd-table-card",
         orangeHrmUserToTrash : "i.bi-trash",
         orangeHrmUserToEdit : "i.oxd-icon.bi-pencil-fill",
@@ -29,7 +32,15 @@ export class HomePage{
         orangeHrmStatus : 'Enabled',
         orangeHrmEmpName : 'Suresh  Patil'
     }
-    
+        private JobElements ={
+           orangeHrmJobOption : "Job ",
+           orangeHrmJobTitle : "Job Titles",
+           orangeHrmJobPayGrades : "Pay Grades",
+           orangeHrmJobEmpStatus : "Employment Status",
+           orangeHrmJobCateg : "Job Categories",
+           orangeHrmJobWorkShift : "Work Shifts",
+           orangeHrmJobPayRecords : ".oxd-table-card"
+    }
     async validateTheAdminPage()
     {
         // await pageFixture.page.waitForURL('**/dashboard/index', {timeout: 3000});
@@ -59,26 +70,68 @@ export class HomePage{
     }
     async selectEmpName()
     {
-        await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).pressSequentially("sh")
-        // await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).press('ArrowDown')
-        await pageFixture.page.getByRole('option', {name:this.Elements.orangeHrmEmpName}).click()
+        const empName = await pageFixture.page.locator(".oxd-userdropdown-name").innerText()
+        await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).pressSequentially(empName)
+        await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).press('ArrowDown')
+        // await pageFixture.page.getByRole('option', {name:this.Elements.orangeHrmEmpName}).click()
+        const options = await pageFixture.page.getByRole('option')
+        await options.first().click()
     }
     async selectStatus()
     {
         await pageFixture.page.getByText(this.Elements.orageHrmSelectOption).last().click()
         await pageFixture.page.getByRole('option', {name:this.Elements.orangeHrmStatus}).click()
     }
+    async searchFilter()
+    {
+        await pageFixture.page.getByRole('button',{name:" Search "}).click()
+    }
     async clickOnEditUser()
     {
+        this.empNewName = await pageFixture.page.locator(this.Elements.orangeHrmRecordFound).nth(1).locator(".oxd-table-cell").nth(1).innerText()
         await pageFixture.page.locator(this.Elements.orangeHrmRecordFound).filter({hasText : this.Elements.orangeHrmAdminption}).first().getByRole("button").locator(this.Elements.orangeHrmUserToEdit).click()
         await pageFixture.page.waitForTimeout(2000)
     }
     async changeEmpName()
     {
-        await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).fill(this.Elements.orangeHrmUserToChange)
+       
+        await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).fill(this.empNewName)
+        // await pageFixture.page.getByPlaceholder(this.Elements.orageHrmEmpNamePlaceHolder).press("ArrowDown")
+        const noRows = await pageFixture.page.getByText("No Records Found").innerText()
+        if(noRows == "No Records Found")
+        {
+            await pageFixture.page.getByText("No Records Found").click()
+        }
+        const invalid = await pageFixture.page.getByText("Invalid").innerText()
+        if(invalid == "Invalid")
+        {
+            await pageFixture.page.getByRole("button", {name: this.Elements.orageHrmCancel}).click()
+        }
     }
     async saveAdminName()
     {
         await pageFixture.page.getByRole('button', {name: this.Elements.orangeHrmSavedetails}).click()
     }
-}
+    async jobDetails()
+    {
+        await pageFixture.page.getByRole("list").getByText(" Job ").click()
+        await pageFixture.page.getByRole("menuitem", {name: this.JobElements.orangeHrmJobPayGrades}).click()
+        const noOfRecors = await pageFixture.page.locator(this.JobElements.orangeHrmJobPayRecords).count()
+        console.log(noOfRecors)
+        await pageFixture.page.getByRole("button", {name: " Add "}).click()
+        await pageFixture.page.locator(".oxd-input").last().fill("record last")
+        await pageFixture.page.getByRole("button", {name: " Save "}).click()
+        await pageFixture.page.getByRole("button", {name: " Add "}).click()
+        await pageFixture.page.locator(".oxd-select-text").click()
+        const options = await pageFixture.page.getByRole("option")
+        await options.getByText("EUR - Euro").click()
+        await pageFixture.page.locator(".oxd-input").nth(2).fill("10000")
+        await pageFixture.page.locator(".oxd-input").nth(3).fill("15000")
+        await pageFixture.page.getByRole("button", {name: " Save "}).last().click()
+        await pageFixture.page.getByRole("list").getByText(" Job ").click()
+        await pageFixture.page.getByRole("menuitem", {name: this.JobElements.orangeHrmJobPayGrades}).click()
+        await pageFixture.page.locator(".oxd-table-row", { hasText: "record last" }).locator("label").click()
+        await pageFixture.page.getByRole("button", {name: " Delete Selected "}).click()
+        await pageFixture.page.getByRole("button",{ name: " Yes, Delete "}).click()
+    }
+}   

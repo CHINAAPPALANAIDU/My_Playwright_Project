@@ -64,7 +64,8 @@ Then("I valid the home page admin option", async () =>{
         await homePage.selectUserRole()
         await homePage.selectEmpName()
         await homePage.selectStatus()
+        await homePage.searchFilter()
         await homePage.clickOnEditUser()
         await homePage.changeEmpName()
-        
+        await homePage.jobDetails()
 });
