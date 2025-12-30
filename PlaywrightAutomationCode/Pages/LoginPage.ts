@@ -6,8 +6,8 @@ export class LoginPage{
         
         private readonly page : Page
 
-        constructor(page : Page)
-        {
+        constructor(page : Page) 
+        { 
             this.page = page
         }
        private Elements ={
